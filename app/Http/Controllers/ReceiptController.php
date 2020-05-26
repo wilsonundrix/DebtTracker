@@ -26,7 +26,7 @@ class ReceiptController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'receipt_no' => 'required',
+            'receipt_no' => 'required|unique:receipts',
             'sale_amount' => 'required',
             'current_balance' => 'required',
         ]);

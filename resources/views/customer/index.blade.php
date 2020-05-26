@@ -12,6 +12,7 @@
         <th>Actual Names</th>
         <th>Phone No.</th>
         <th>Alternate No.</th>
+        <th>Balance</th>
         @can('view-customers')
             <th>Action</th>
         @endcan
@@ -23,6 +24,11 @@
                 <td>{{ $customer->real_name }}</td>
                 <td>{{ $customer->phone_no }}</td>
                 <td>{{ $customer->alternate_no }}</td>
+                @if($customer->account->balance <= 0)
+                    <td class="text-success">{{ $customer->account->balance }}</td>
+                @else
+                    <td class="text-danger">{{ $customer->account->balance }}</td>
+                @endif
                 <td>
                     @can('view-customers')
                         <a class="btn btn-primary float-left mr-1"

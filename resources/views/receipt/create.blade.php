@@ -12,16 +12,17 @@
         <div class="form-group">
             <label class="control-label">Receipt No</label>
             <input class="form-control" id="receipt_no" name="receipt_no" type="text"
-                   placeholder="Enter receipt no">
+                   placeholder="Enter receipt no" value="{{ old('receipt_no') }}">
         </div>
         <div class="form-group">
             <label class="control-label">Sale Amount</label>
-            <input class="form-control" id="sale_amount" name="sale_amount" type="text" placeholder="Enter Sale Amount">
+            <input class="form-control" id="sale_amount" name="sale_amount" type="text" placeholder="Enter Sale Amount"
+                   value="{{ old('sale_amount') }}">
         </div>
         <div class="form-group">
             <label class="control-label">Balance</label>
             <input class="form-control" id="current_balance" name="current_balance" type="text"
-                   placeholder="Enter current_balance.">
+                   placeholder="Enter current balance." value="{{ old('current_balance') }}">
         </div>
 
         <button class="btn btn-success btn-block" type="submit">Add Receipt</button>

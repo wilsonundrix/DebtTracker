@@ -12,17 +12,17 @@
         <div class="form-group">
             <label class="control-label">Pay Amount</label>
             <input class="form-control" id="pay_amount" name="pay_amount" type="number"
-                   placeholder="Enter payment amount">
+                   placeholder="Enter payment amount" value="{{ old('pay_amount') }}">
         </div>
         <div class="form-group">
             <label class="control-label">Extra Payment</label>
             <input class="form-control" id="extra_amount" name="extra_amount" type="text"
-                   placeholder="Enter extra payment">
+                   placeholder="Enter extra payment" value="{{ old('extra_amount') }}">
         </div>
         <div class="form-group">
             <label class="control-label">Payment Type</label>
             <input class="form-control" id="payment_type" name="payment_type" type="text"
-                   placeholder="Enter payment type">
+                   placeholder="Enter payment type" value="{{ old('payment_type') }}">
         </div>
         <button class="btn btn-success btn-block" type="submit">Add Payment</button>
     </form>

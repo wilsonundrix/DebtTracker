@@ -44,7 +44,7 @@ class Customer extends Model
         return $this->hasOne(Account::class);
     }
 
-    public function Receipts()
+    public function receipts()
     {
         return $this->hasMany(Receipt::class);
     }

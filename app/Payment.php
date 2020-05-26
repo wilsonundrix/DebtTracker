@@ -38,6 +38,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Payment extends Model
 {
+
+    protected $fillable = [
+        'user_id', 'receipt_id', 'pay_amount', 'previous_balance', 'new_balance', 'payment_type', 'extra_amount', 'description',
+    ];
+
     public function Receipt()
     {
         return $this->belongsTo(Receipt::class);

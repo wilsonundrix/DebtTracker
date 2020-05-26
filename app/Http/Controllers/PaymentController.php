@@ -42,15 +42,11 @@ class PaymentController extends Controller
 
         $receipt_id = $request['receipt_id'];
         $receipt = Receipt::whereId($receipt_id)->first();
-
-        $pay_amount = $request->input('pay_amount');
         $previous_balance = $receipt->current_balance;
 
-        $new_balance = $previous_balance - $pay_amount;
-
+        $pay_amount = $request->input('pay_amount');
         $extra_amount = $request->input('extra_amount');
         $payment_type = $request->input('payment_type');
-
 
         $payment = new Payment();
         $payment->user_id = Auth::id();
