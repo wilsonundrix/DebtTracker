@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -17,8 +16,11 @@ use Illuminate\Notifications\Notifiable;
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Customer|null $customer
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \App\Payment|null $payment
+ * @property-read \App\Receipt|null $receipt
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Role[] $roles
  * @property-read int|null $roles_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User newModelQuery()
@@ -64,8 +66,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-	
-	public function roles()
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class);
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
+
+    public function receipt()
+    {
+        return $this->hasOne(Receipt::class);
+    }
+
+    public function roles()
     {
         return $this->belongsToMany('App\Role');
     }

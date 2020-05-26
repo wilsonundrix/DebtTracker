@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Receipt[] $Receipts
  * @property-read int|null $receipts_count
+ * @property-read \App\Account|null $account
+ * @property-read \App\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Customer query()
@@ -34,11 +36,21 @@ class Customer extends Model
 {
 
     protected $fillable = [
-        'real_name','receipt_name','phone_no','alternate_no'
+        'real_name', 'receipt_name', 'phone_no', 'alternate_no'
     ];
+
+    public function account()
+    {
+        return $this->hasOne(Account::class);
+    }
 
     public function Receipts()
     {
         return $this->hasMany(Receipt::class);
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -58,6 +59,12 @@ class CustomerController extends Controller
         $customer->phone_no = $request->input('phone_no');
         $customer->alternate_no = $request->input('alternate_no');
         $customer->save();
+
+        $cus_id = $customer->id;
+        $starting_balance = $request->input('starting_balance');
+
+        Account::create(['customer_id' => $cus_id, 'balance' => $starting_balance]);
+
         return redirect()->route('customer.index')->with([
             'success' => 'Customer Created Successfully'
         ]);

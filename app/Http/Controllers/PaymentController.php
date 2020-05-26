@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\Payment;
 use App\Receipt;
 use Illuminate\Http\Request;
@@ -44,27 +45,38 @@ class PaymentController extends Controller
 
         $pay_amount = $request->input('pay_amount');
         $previous_balance = $receipt->current_balance;
+
         $new_balance = $previous_balance - $pay_amount;
+
         $extra_amount = $request->input('extra_amount');
         $payment_type = $request->input('payment_type');
-        if ($extra_amount == null) {
-            $extra_amount = 0;
-        }
+
 
         $payment = new Payment();
         $payment->user_id = Auth::id();
         $payment->receipt_id = $receipt_id;
-        $payment->pay_amount = $pay_amount;
         $payment->previous_balance = $previous_balance;
-        $payment->new_balance = $new_balance;
+        if ($pay_amount >= $previous_balance) {
+            $payment->pay_amount = $previous_balance;
+            $payment->new_balance = 0;
+        } else {
+            $payment->pay_amount = $pay_amount;
+            $payment->new_balance = $previous_balance - $pay_amount;
+        }
         $payment->extra_amount = $extra_amount;
         $payment->payment_type = $payment_type;
-
-        $receipt->current_balance = $new_balance;
-        $receipt->update();
         $payment->save();
 
-        return redirect()->route('receipt.show', $receipt_id);
+        $receipt->current_balance = $payment->new_balance;
+        $receipt->update();
+
+        $account = Account::whereCustomerId($receipt->customer_id)->first();
+        $account->balance -= $pay_amount;
+        $account->update();
+
+        return redirect()->route('receipt.show', $receipt_id)->with([
+            'success' => 'Payment Added And Account Updated Successfully',
+        ]);
     }
 
     /**

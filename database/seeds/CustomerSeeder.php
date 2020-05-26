@@ -2,7 +2,6 @@
 
 use App\Customer;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Auth;
 
 class CustomerSeeder extends Seeder
 {

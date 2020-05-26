@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Customer $Customer
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Payment[] $Payments
  * @property-read int|null $payments_count
+ * @property-read \App\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt query()
@@ -41,5 +42,10 @@ class Receipt extends Model
     public function Payments()
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
     }
 }

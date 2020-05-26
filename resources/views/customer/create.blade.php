@@ -27,6 +27,11 @@
             <input class="form-control" id="alternate_no" name="alternate_no" type="text"
                    placeholder="Enter alternate no.">
         </div>
+        <div class="form-group">
+            <label class="control-label">Starting Balance</label>
+            <input class="form-control" id="starting_balance" name="starting_balance" type="text"
+                   placeholder="Enter Starting Balance">
+        </div>
         <button class="btn btn-success btn-block" type="submit">Add Customer</button>
     </form>
 

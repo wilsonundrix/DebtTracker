@@ -31,3 +31,5 @@ Route::resource('customer', 'CustomerController');
 Route::resource('receipt', 'ReceiptController');
 
 Route::resource('payment', 'PaymentController');
+
+Route::resource('account', 'AccountController');

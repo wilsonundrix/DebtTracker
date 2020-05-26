@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Receipt $Receipt
+ * @property-read \App\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Payment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Payment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Payment query()
@@ -40,5 +41,10 @@ class Payment extends Model
     public function Receipt()
     {
         return $this->belongsTo(Receipt::class);
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
     }
 }
