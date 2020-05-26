@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Payment
  *
  * @property int $id
+ * @property int $user_id
  * @property int $receipt_id
  * @property int $pay_amount
  * @property int $previous_balance
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Payment wherePreviousBalance($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Payment whereReceiptId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Payment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Payment whereUserId($value)
  * @mixin \Eloquent
  */
 class Payment extends Model

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
-use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -24,9 +23,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $allUsers = User::all();
-        $superUser = User::whereEmail('super@test.com');
-        return view('admin.users.index')->with('users', $allUsers);
+//        $allUsers = User::all();
+//        $superUser = User::whereEmail('super@test.com')->first();
+//        $users = User::where('id', "!=", 1)->get();
+//        $users = User::whereEmail()->get();
+        $users = User::where('email', "!=", 'super@test.com')->get();
+        return view('admin.users.index')->with('users', $users);
     }
 
     /**
@@ -57,10 +59,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
 
-        $user->roles()->sync($request->roles);
+        $user->roles()->sync($request->input('roles'));
         if ($user->save()) {
             $request->session()->flash('success', 'User Updated Successfully');
         }
@@ -68,10 +70,9 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\User $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Exception
      */
     public function destroy(User $user)
     {

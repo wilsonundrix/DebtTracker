@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Receipt
  *
  * @property int $id
+ * @property int $user_id
  * @property int $customer_id
  * @property int $receipt_no
  * @property string $sale_amount
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt whereReceiptNo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt whereSaleAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt whereUserId($value)
  * @mixin \Eloquent
  */
 class Receipt extends Model

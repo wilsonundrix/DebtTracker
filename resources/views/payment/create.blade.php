@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
 @section('link')
-    <h3 class="float-left">Create Payment</h3>
-    <a class="btn btn-primary float-right" href="{{ route('customer.index') }}">Back To Receipt</a>
+    <h3 class="float-left">Create Payment for {{ $receipt->receipt_no }}</h3>
+    <a class="btn btn-primary float-right" href="{{ route('receipt.show',$receipt->id) }}">Back To Receipt</a>
 @endsection
 
-@section('main_content')
+@section('content')
 
-    <form class="form-horizontal" method="POST" action="{{ route('payment.store',$receipt) }}">
+    <form class="form-horizontal" method="POST" action="{{ route('payment.store',['receipt_id'=>$receipt->id]) }}">
         @csrf
         <div class="form-group">
             <label class="control-label">Pay Amount</label>
             <input class="form-control" id="pay_amount" name="pay_amount" type="number"
-                   placeholder="Enter receipt name">
+                   placeholder="Enter payment amount">
         </div>
         <div class="form-group">
             <label class="control-label">Extra Payment</label>

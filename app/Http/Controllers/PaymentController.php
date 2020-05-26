@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Payment;
 use App\Receipt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -17,12 +18,15 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param Receipt $receipt
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(Receipt $receipt)
+    public function create(Request $request)
     {
-        return view('payment.create')->with('receipt',$receipt);
+        $receipt = Receipt::whereId($request['receipt_id'])->first();
+        return view('payment.create')->with([
+            'receipt' => $receipt,
+        ]);
     }
 
     /**
@@ -35,8 +39,11 @@ class PaymentController extends Controller
             'pay_amount' => 'required',
         ]);
 
+        $receipt_id = $request['receipt_id'];
+        $receipt = Receipt::whereId($receipt_id)->first();
+
         $pay_amount = $request->input('pay_amount');
-        $previous_balance = $request->receipt()->current_balance;
+        $previous_balance = $receipt->current_balance;
         $new_balance = $previous_balance - $pay_amount;
         $extra_amount = $request->input('extra_amount');
         $payment_type = $request->input('payment_type');
@@ -45,17 +52,19 @@ class PaymentController extends Controller
         }
 
         $payment = new Payment();
+        $payment->user_id = Auth::id();
+        $payment->receipt_id = $receipt_id;
         $payment->pay_amount = $pay_amount;
         $payment->previous_balance = $previous_balance;
         $payment->new_balance = $new_balance;
         $payment->extra_amount = $extra_amount;
         $payment->payment_type = $payment_type;
 
-        {{ dd($payment); }}
-
+        $receipt->current_balance = $new_balance;
+        $receipt->update();
         $payment->save();
 
-        return redirect()->route('receipt.show');
+        return redirect()->route('receipt.show', $receipt_id);
     }
 
     /**

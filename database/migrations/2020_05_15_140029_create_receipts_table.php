@@ -15,6 +15,7 @@ class CreateReceiptsTable extends Migration
     {
         Schema::create('receipts', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->integer('customer_id');
             $table->integer('receipt_no');
             $table->string('sale_amount');

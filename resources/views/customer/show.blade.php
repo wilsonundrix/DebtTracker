@@ -5,8 +5,9 @@
     <a class="btn btn-primary float-right" href="{{ route('customer.index') }}">Back To Customers</a>
 @endsection
 
-@section('main_content')
+@section('content')
 
+    {{--Customer Info--}}
     <table class="table table-bordered">
         <thead class="bg-primary">
         <th>Receipt Name</th>
@@ -23,10 +24,12 @@
         </tr>
         </tbody>
     </table>
+    {{--end of customer info--}}
 
     <div class="mb-4">
         <h3 class="float-left">Receipts</h3>
-        <a class="float-right btn btn-primary" href="{{ route('receipt.create',$customer) }}">Add Receipt</a>
+        <a class="float-right btn btn-primary" href="{{ route('receipt.create',['customer_id'=>$customer->id]) }}">Add
+            Receipt</a>
     </div>
 
     <table class="table table-bordered">

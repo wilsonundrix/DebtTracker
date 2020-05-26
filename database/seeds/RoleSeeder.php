@@ -12,7 +12,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::truncate();
+//        Role::truncate();
 
         Role::create(['name'=>'super_admin']);
         Role::create(['name'=>'admin']);

@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +22,9 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        return view('customer.index')->with('customers', $customers);
+        return view('customer.index')->with([
+            'customers' => $customers,
+        ]);
     }
 
     /**
@@ -43,12 +52,15 @@ class CustomerController extends Controller
         ]);
 
         $customer = new Customer();
+        $customer->user_id = Auth::id();
         $customer->receipt_name = $request->input('receipt_name');
         $customer->real_name = $request->input('real_name');
         $customer->phone_no = $request->input('phone_no');
         $customer->alternate_no = $request->input('alternate_no');
         $customer->save();
-        return redirect()->route('customer.index');
+        return redirect()->route('customer.index')->with([
+            'success' => 'Customer Created Successfully'
+        ]);
     }
 
     /**
@@ -57,31 +69,55 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        return view('customer.show')->with('customer', $customer);
+        return view('customer.show')->with([
+            'customer' => $customer,
+        ]);
     }
 
     /**
      * @param Customer $customer
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customer.edit')->with([
+            'customer' => $customer,
+        ]);
     }
 
     /**
      * @param Request $request
      * @param Customer $customer
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $request->validate([
+            'receipt_name' => 'required',
+            'real_name' => 'required',
+            'phone_no' => 'required',
+        ]);
+
+        $customer->receipt_name = $request->input('receipt_name');
+        $customer->real_name = $request->input('real_name');
+        $customer->phone_no = $request->input('phone_no');
+        $customer->alternate_no = $request->input('alternate_no');
+        $customer->update();
+        return redirect()->route('customer.index')->with([
+            'success' => 'Customer Updated Successfully'
+        ]);
     }
 
     /**
      * @param Customer $customer
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return redirect()->route('customer.index')->with([
+            'success' => 'Customer Deleted Successfully'
+        ]);
     }
 }

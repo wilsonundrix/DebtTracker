@@ -82,7 +82,7 @@
     </nav>
 
     <main class="py-4">
-        @yield('content')
+{{--        @yield('content')--}}
 
         <div class="container">
             <div class="row justify-content-center">
@@ -94,7 +94,7 @@
 
                         <div class="card-body">
 
-                            @yield('main_content')
+                            @yield('content')
 
                         </div>
                     </div>

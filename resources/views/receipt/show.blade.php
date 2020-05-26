@@ -5,7 +5,7 @@
     <a class="btn btn-primary float-right" href="{{ route('customer.show',$receipt->customer) }}">Back To Customer</a>
 @endsection
 
-@section('main_content')
+@section('content')
 
     <table class="table table-bordered">
         <thead class="bg-primary">
@@ -26,7 +26,7 @@
 
     <div class="mb-4">
         <h3 class="float-left">Payments</h3>
-        <a class="float-right btn btn-primary" href="{{ route('payment.create',$receipt) }}">Add Payment</a>
+        <a class="float-right btn btn-primary" href="{{ route('payment.create',['receipt_id'=>$receipt->id]) }}">Add Payment</a>
 
         <div>
             <table class="table table-bordered">

@@ -27,14 +27,28 @@ class AuthServiceProvider extends ServiceProvider
 
         //Define the Gates Here
         Gate::define('manage-users', function ($user) {
-            return $user->hasAnyRole(['super_admin','admin']);
+            return $user->hasAnyRole(['super_admin', 'admin']);
         });
         Gate::define('edit-users', function ($user) {
-            return $user->hasAnyRole(['super_admin','admin']);
+            return $user->hasAnyRole(['super_admin', 'admin']);
+        });
+        Gate::define('delete-users', function ($user) {
+            return $user->hasAnyRole(['super_admin']);
         });
 
-        Gate::define('delete-users', function ($user) {
-            return $user->hasRole(['super_admin']);
+        //Define the Customer Gates Here
+        Gate::define('manage-customers', function ($user) {
+            return $user->hasAnyRole(['super_admin', 'admin']);
         });
+        Gate::define('view-customers', function ($user) {
+            return $user->hasAnyRole(['super_admin', 'admin', 'user']);
+        });
+        Gate::define('edit-customers', function ($user) {
+            return $user->hasAnyRole(['super_admin', 'admin']);
+        });
+        Gate::define('delete-customers', function ($user) {
+            return $user->hasAnyRole(['super_admin', 'admin']);
+        });
+
     }
 }

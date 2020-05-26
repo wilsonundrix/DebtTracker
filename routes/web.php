@@ -22,12 +22,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function (){
-   Route::resource('/users','UserController',['except'=>['show','store','create']]);
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('/users', 'UserController', ['except' => ['show', 'store', 'create']]);
 });
 
-Route::resource('customer','CustomerController');
-Route::resource('receipt','ReceiptController');
+Route::resource('customer', 'CustomerController');
 
-Route::get('/payment/create/{receipt}', 'PaymentController@create')->name('payment.create');
-Route::post('/payment/store', 'PaymentController@store')->name('payment.store');
+Route::resource('receipt', 'ReceiptController');
+
+Route::resource('payment', 'PaymentController');

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Customer
  *
  * @property int $id
+ * @property int $user_id
  * @property string $real_name
  * @property string $receipt_name
  * @property string $phone_no
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Customer whereRealName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Customer whereReceiptName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Customer whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Customer whereUserId($value)
  * @mixin \Eloquent
  */
 class Customer extends Model

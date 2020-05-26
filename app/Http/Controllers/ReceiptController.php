@@ -5,24 +5,24 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\Receipt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReceiptController extends Controller
 {
-    /**
-     * @param Customer $customer
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function create(Customer $customer)
+
+    public function create(Request $request)
     {
-        return view('receipt.create')->with('customer', $customer);
+        $customer = Customer::whereId($request['customer_id'])->first();
+        return view('receipt.create')->with([
+            'customer' => $customer,
+        ]);
     }
 
     /**
      * @param Request $request
-     * @param Customer $customer
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, Customer $customer)
+    public function store(Request $request)
     {
         $request->validate([
             'receipt_no' => 'required',
@@ -30,13 +30,16 @@ class ReceiptController extends Controller
             'current_balance' => 'required',
         ]);
 
+        $customer_id = $request['customer_id'];
+
         $receipt = new Receipt();
-        $receipt->customer_id = $customer->id;
+        $receipt->user_id = Auth::id();
+        $receipt->customer_id = $customer_id;
         $receipt->receipt_no = $request->input('receipt_no');
         $receipt->sale_amount = $request->input('sale_amount');
         $receipt->current_balance = $request->input('current_balance');
         $receipt->save();
-        return redirect()->route('customer.show', $receipt->customer);
+        return redirect()->route('customer.show', $customer_id);
     }
 
     /**
