@@ -45,13 +45,13 @@ class LoginController extends Controller
             $this->redirectTo = route('admin.users.index');
             return $this->redirectTo;
         } else if (Auth::user()->hasRole('admin')) {
-            $this->redirectTo = route('customer.index');
+            $this->redirectTo = route('admin.users.index');
             return $this->redirectTo;
         } else if (Auth::user()->hasRole('user')) {
             $this->redirectTo = route('customer.index');
             return $this->redirectTo;
         }
-        $this->redirectTo = route('home');
+        $this->redirectTo = route('/');
         return $this->redirectTo;
     }
 }
