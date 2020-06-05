@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAnyRole(['super_admin', 'admin']);
         });
         Gate::define('delete-users', function ($user) {
-            return $user->hasAnyRole(['super_admin']);
+            return $user->hasAnyRole(['super_admin','admin']);
         });
 
         //Define the Customer Gates Here

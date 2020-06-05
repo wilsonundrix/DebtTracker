@@ -11,6 +11,7 @@
         <thead class="bg-primary">
         <th>Receipt No</th>
         <th>Sale Amount</th>
+        <th>Initial Tendered Amount</th>
         <th>Balance</th>
         <th>Date</th>
         </thead>
@@ -18,6 +19,7 @@
         <tr>
             <td>{{ $receipt->receipt_no }}</td>
             <td>{{ $receipt->sale_amount }}</td>
+            <td>{{ $receipt->paid_amount }}</td>
             <td>{{ $receipt->current_balance }}</td>
             <td>{{ $receipt->created_at }}</td>
         </tr>
@@ -37,6 +39,7 @@
                 <th>Previous Balance</th>
                 <th>Pay Amount</th>
                 <th>New Balance</th>
+                <th>Payment Type</th>
                 <th>Time</th>
                 </thead>
                 <tbody>
@@ -53,6 +56,7 @@
                         <td>{{ $payment->previous_balance }}</td>
                         <td>{{ $payment->pay_amount }}</td>
                         <td>{{ $payment->new_balance }}</td>
+                        <td>{{ $payment->payment_tag }}</td>
                         <td>{{ $payment->created_at }}</td>
                     </tr>
                 @endforeach

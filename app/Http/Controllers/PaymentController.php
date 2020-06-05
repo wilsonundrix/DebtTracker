@@ -61,6 +61,7 @@ class PaymentController extends Controller
         }
         $payment->extra_amount = $extra_amount;
         $payment->payment_type = $payment_type;
+        $payment->payment_tag = 'singular';
         $payment->save();
 
         $receipt->current_balance = $payment->new_balance;

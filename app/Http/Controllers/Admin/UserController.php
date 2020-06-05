@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
@@ -27,7 +28,7 @@ class UserController extends Controller
 //        $superUser = User::whereEmail('super@test.com')->first();
 //        $users = User::where('id', "!=", 1)->get();
 //        $users = User::whereEmail()->get();
-        $users = User::where('email', "!=", 'super@test.com')->get();
+        $users = User::where('email', "!=", 'super@test.com')->where('id', "!=", Auth::id())->get();
         return view('admin.users.index')->with('users', $users);
     }
 

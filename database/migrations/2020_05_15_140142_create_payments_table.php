@@ -21,6 +21,7 @@ class CreatePaymentsTable extends Migration
             $table->integer('previous_balance');
             $table->integer('new_balance');
             $table->string('payment_type');
+            $table->string('payment_tag');
             $table->integer('extra_amount')->default(0);
             $table->integer('description')->nullable();
             $table->timestamps();

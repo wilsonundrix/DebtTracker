@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $alternate_no
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Receipt[] $Receipts
- * @property-read int|null $receipts_count
  * @property-read \App\Account|null $account
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Receipt[] $receipts
+ * @property-read int|null $receipts_count
  * @property-read \App\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Customer newQuery()

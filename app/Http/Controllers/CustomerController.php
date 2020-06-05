@@ -48,8 +48,8 @@ class CustomerController extends Controller
     {
         $request->validate([
             'receipt_name' => 'required',
-            'real_name' => 'required',
-            'phone_no' => 'required',
+            'real_name' => 'required|unique:customers',
+            'phone_no' => 'required|unique:customers|min:10',
         ]);
 
         $customer = new Customer();

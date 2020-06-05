@@ -19,7 +19,9 @@ class CreateReceiptsTable extends Migration
             $table->integer('customer_id');
             $table->integer('receipt_no')->unique();
             $table->string('sale_amount');
+            $table->string('paid_amount');
             $table->string('current_balance');
+//            $table->date('receipt_date');
             $table->timestamps();
         });
     }

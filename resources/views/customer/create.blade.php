@@ -12,7 +12,7 @@
         <div class="form-group">
             <label class="control-label">Receipt Name</label>
             <input class="form-control" id="receipt_name" name="receipt_name" type="text"
-                   placeholder="Enter receipt name">
+                   placeholder="Enter receipt name" value="{{ old('receipt_name') }}">
         </div>
         <div class="form-group">
             <label class="control-label">Real Name</label>

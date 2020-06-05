@@ -53,11 +53,9 @@
                 </div>
             </div>
         @endforeach
-        <button class="btn btn-primary justify-content-center">Update</button>
+        <div class="justify-content-center">
+            <button class="btn btn-primary">Update</button>
+        </div>
+
     </form>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
 @endsection

@@ -22,6 +22,7 @@ class PaymentSeeder extends Seeder
         $p1->previous_balance = 5000;
         $p1->new_balance = 2000;
         $p1->payment_type = 'cash';
+        $p1->payment_tag = 'singular';
         $p1->extra_amount = 0;
         $p1->save();
 
@@ -32,6 +33,7 @@ class PaymentSeeder extends Seeder
         $p2->previous_balance = 2000;
         $p2->new_balance = 0;
         $p2->payment_type = 'cash';
+        $p2->payment_tag = 'singular';
         $p2->extra_amount = 0;
         $p2->save();
 
@@ -42,6 +44,7 @@ class PaymentSeeder extends Seeder
         $p3->previous_balance = 4500;
         $p3->new_balance = 500;
         $p3->payment_type = 'mpesa';
+        $p3->payment_tag = 'singular';
         $p3->extra_amount = 50;
         $p3->save();
 
@@ -52,6 +55,7 @@ class PaymentSeeder extends Seeder
         $p4->previous_balance = 500;
         $p4->new_balance = 100;
         $p4->payment_type = 'cash';
+        $p4->payment_tag = 'singular';
         $p4->extra_amount = 0;
         $p4->save();
     }

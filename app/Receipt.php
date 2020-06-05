@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $customer_id
  * @property int $receipt_no
  * @property string $sale_amount
+ * @property string $paid_amount
  * @property string $current_balance
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt whereCurrentBalance($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt whereCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt wherePaidAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt whereReceiptNo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt whereSaleAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Receipt whereUpdatedAt($value)

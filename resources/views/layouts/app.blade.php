@@ -64,7 +64,7 @@
                                     </a>
                                 @endcan
                                 <a class="dropdown-item" href="{{ route('customer.index') }}">
-                                    Customers
+                                    View Customers
                                 </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();

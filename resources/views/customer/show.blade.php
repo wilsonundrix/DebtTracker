@@ -36,13 +36,23 @@
             <form class="form-horizontal" method="POST"
                   action="{{ route('batch.store',['customer_id'=>$customer->id]) }}">
                 @csrf
-                <div class="form-group">
-                    <label class="control-label">Batch Payment</label>
-                    <input class="form-control" id="batch_amount" name="batch_amount" type="number"
-                           placeholder="Enter batch payment amount">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="payment_type">Payment Option:</label>
+                        <select class="form-control" id="payment_type" name="payment_type">
+                            <option>cash</option>
+                            <option>m-pesa</option>
+                            <option>Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Batch Payment</label>
+                        <input class="form-control" id="batch_amount" name="batch_amount" type="number"
+                               placeholder="Enter batch amount">
+                    </div>
                 </div>
 
-                <button class="btn btn-success btn-block" type="submit">Make Payment</button>
+                <button class="btn btn-success btn-block mb-2" type="submit">Make Payment</button>
             </form>
         </div>
     </div>
@@ -57,6 +67,7 @@
         <thead class="bg-warning">
         <th>Receipt No</th>
         <th>Sale Amount</th>
+        <th>Tendered Amount</th>
         <th>Balance</th>
         <th>Time</th>
         <th>Action</th>
@@ -66,6 +77,7 @@
             <tr>
                 <td>{{ $receipt->receipt_no }}</td>
                 <td>{{ $receipt->sale_amount }}</td>
+                <td>{{ $receipt->paid_amount }}</td>
                 <td>{{ $receipt->current_balance }}</td>
                 <td>{{ $receipt->created_at }}</td>
                 <td>

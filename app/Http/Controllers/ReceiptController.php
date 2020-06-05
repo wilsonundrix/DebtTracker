@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Customer;
+use App\Payment;
 use App\Receipt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ReceiptController extends Controller
 {
-
     public function create(Request $request)
     {
         $customer = Customer::whereId($request['customer_id'])->first();
@@ -28,14 +28,16 @@ class ReceiptController extends Controller
         $request->validate([
             'receipt_no' => 'required|unique:receipts',
             'sale_amount' => 'required',
-            'current_balance' => 'required',
+            'paid_amount' => 'required',
         ]);
 
         $customer_id = $request['customer_id'];
         $receipt_no = $request->input('receipt_no');
         $sale_amount = $request->input('sale_amount');
-        $receipt_remaining_balance = $request->input('current_balance');
+        $paid_amount = $request->input('paid_amount');
+        $payment_type = $request->input('payment_type');
 
+        $receipt_remaining_balance = $sale_amount - $paid_amount;
         $account = Account::whereCustomerId($customer_id)->first();
 
         $receipt = new Receipt();
@@ -43,8 +45,9 @@ class ReceiptController extends Controller
         $receipt->customer_id = $customer_id;
         $receipt->receipt_no = $receipt_no;
         $receipt->sale_amount = $sale_amount;
+        $receipt->paid_amount = $paid_amount;
 
-        if ($account->balance < 0) {
+        if (($account->balance * -1) > 0) {
             //you can deduct from account
             if ($receipt_remaining_balance < ($account->balance * -1)) {
                 $receipt->current_balance = 0;
@@ -55,6 +58,18 @@ class ReceiptController extends Controller
             $receipt->current_balance = $receipt_remaining_balance;
         }
         $receipt->save();
+
+        //create an automatic payment
+        Payment::create([
+            'user_id' => Auth::id(),
+            'receipt_id' => $receipt->id,
+            'pay_amount' => $paid_amount,
+            'previous_balance' => $sale_amount,
+            'new_balance' => $receipt_remaining_balance,
+            'payment_type' => $payment_type,
+            'payment_tag' => 'singular',
+            'extra_amount' => 0,
+        ]);
 
         //update account balance with receipt balance
         $account->balance += $receipt_remaining_balance;

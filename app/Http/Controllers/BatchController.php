@@ -38,6 +38,7 @@ class BatchController extends Controller
 
         $customer_id = $request['customer_id'];
         $batch_amount = $request['batch_amount'];
+        $payment_type = $request['payment_type'];
         $customer = Customer::whereId($customer_id)->first();
         $account = Account::whereCustomerId($customer_id)->first();
 
@@ -54,7 +55,8 @@ class BatchController extends Controller
                         'pay_amount' => $receipt_current_balance,
                         'previous_balance' => $receipt_current_balance,
                         'new_balance' => 0,
-                        'payment_type' => 'cash',
+                        'payment_type' => $payment_type,
+                        'payment_tag' => 'batch',
                         'extra_amount' => 0,
                     ]);
 
@@ -78,6 +80,7 @@ class BatchController extends Controller
                         'previous_balance' => $receipt_current_balance,
                         'new_balance' => $receipt_current_balance - $batch_amount,
                         'payment_type' => 'cash',
+                        'payment_tag' => 'batch',
                         'extra_amount' => 0,
                     ]);
 
