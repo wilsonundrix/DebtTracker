@@ -1,3 +1,4 @@
+@php(extract($data))
 @extends('layouts.app')
 
 @section('link')
@@ -6,6 +7,7 @@
 @endsection
 
 @section('content')
+{{$customer}}
 
     <form class="form-horizontal" method="POST" action="{{ route('receipt.store',['customer_id'=>$customer->id]) }}">
         @csrf
@@ -18,7 +20,7 @@
             <div class="form-group col-md-4">
                 <label class="control-label">Receipt Date</label>
                 <input class="date form-control" id="receipt_date" name="receipt_date" type="date"
-                       placeholder="Enter receipt Date" value={{ time() }}>
+                       placeholder="Enter receipt Date" value={{ Date('Y-m-d') }}>
             </div>
             <div class="form-group col-md-4">
                 <label class="control-label">Sale Amount</label>

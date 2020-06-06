@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Customer;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,12 +21,25 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+//    public function index()
+//    {
+//        $customers = Customer::all();
+//        return view('customer.index')->with([
+//            'customers' => $customers,
+//        ]);
+//    }
+
     public function index()
     {
-        $customers = Customer::all();
-        return view('customer.index')->with([
-            'customers' => $customers,
-        ]);
+
+        $data['customers']=Customer::when(request('name'),function (Builder $builder,$name){
+//            return $builder ->whereRealName($name);
+            return $builder->where('real_name','LIKE','%'.$name .'%');
+
+        })->orderByDesc('id')
+            ->paginate(5);
+
+       return view('customer.index',['data'=>$data]);
     }
 
     /**
@@ -126,5 +140,17 @@ class CustomerController extends Controller
         return redirect()->route('customer.index')->with([
             'success' => 'Customer Deleted Successfully'
         ]);
+    }
+
+    /**
+     * @param Customer $customer
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     */
+    public function customerReceipt(Customer $customer)
+    {
+        $data['customer']=$customer->with(['account','receipts','user'])->first();
+
+        return view('receipt.create',['data'=>$data]);
     }
 }

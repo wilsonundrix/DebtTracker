@@ -59,7 +59,8 @@
 
     <div class="mb-4">
         <h3 class="float-left">Receipts</h3>
-        <a class="float-right btn btn-primary" href="{{ route('receipt.create',['customer_id'=>$customer->id]) }}">Add
+        <a class="float-right btn btn-primary" href="{{ route('receipt_create',['customer'=>$customer]) }}">Add
+        {{--<a class="float-right btn btn-primary" href="{{ routeroute('receipt.create',['customer'=>$customer]) }}">Add--}}
             Receipt</a>
     </div>
 
@@ -82,7 +83,7 @@
                 <td>{{ $receipt->created_at }}</td>
                 <td>
                     <a class="btn btn-outline-success"
-                       href="{{ route('receipt.show',$receipt) }}">View Receipt</a>
+                       href="{{ route('receipt.show',['receipt'=>$receipt->id]) }}">View Receipt</a>
                 </td>
             </tr>
         @endforeach

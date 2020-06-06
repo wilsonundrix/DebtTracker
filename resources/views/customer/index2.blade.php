@@ -1,4 +1,3 @@
-@php(extract($data))
 @extends('layouts.app')
 
 @section('link')
@@ -7,20 +6,6 @@
 @endsection
 
 @section('content')
-    <div class="row">
-
-        <form action="{{route('customer.index')}}" method="get" class="form-group">
-
-                    <input type="text" class="form-group" name="name" value="{{request()->query('name')}}">
-
-                    <button class="btn btn-sm btn-primary" type="submit"> Fetch</button>
-
-
-            </div>
-        </form>
-    <a href="{{route('customer.index')}}" class="btn btn-info btn-sm">Refresh/Reload</a>
-    </div>
-
     <table class="table table-bordered">
         <thead class="bg-primary">
         <th>Receipt Name</th>
@@ -47,7 +32,7 @@
                 <td>
                     @can('view-customers')
                         <a class="btn btn-primary float-left mr-1"
-                           href="{{ route('customer.show',['customer'=>$customer]) }}">View</a>
+                           href="{{ route('customer.show',$customer) }}">View</a>
                     @endcan
                     @can('edit-customers')
                         <a class="btn btn-success float-left mr-1"
@@ -65,5 +50,5 @@
         @endforeach
         </tbody>
     </table>
-{{$customers->render()}}
+
 @endsection

@@ -27,6 +27,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 });
 
 Route::resource('customer', 'CustomerController');
+Route::get('create/receipt/{customer}','CustomerController@customerReceipt')->name('receipt_create');
 Route::resource('receipt', 'ReceiptController', ['except' => ['edit', 'update', 'destroy']]);
 Route::resource('payment', 'PaymentController', ['only' => ['create', 'store']]);
 //Route::resource('account', 'AccountController', ['except' => ['show', 'store', 'create']]);
